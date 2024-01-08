@@ -1,0 +1,8 @@
+out("Input a number: ")
+var num = inint()
+
+if num%2 == 0 then
+    out("Number is even!")
+else
+    out("Number is odd!")
+end

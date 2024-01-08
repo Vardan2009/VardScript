@@ -107,6 +107,7 @@ TT_PLUS     	= 'PLUS'
 TT_MINUS    	= 'MINUS'
 TT_MUL      	= 'MUL'
 TT_DIV      	= 'DIV'
+TT_RE         = 'RE'
 TT_POW				= 'POW'
 TT_EQ					= 'EQ'
 TT_LPAREN   	= 'LPAREN'
@@ -207,6 +208,9 @@ class Lexer:
         self.advance()
       elif self.current_char == '/':
         tokens.append(Token(TT_DIV, pos_start=self.pos))
+        self.advance()
+      elif self.current_char == '%':
+        tokens.append(Token(TT_RE, pos_start=self.pos))
         self.advance()
       elif self.current_char == '^':
         tokens.append(Token(TT_POW, pos_start=self.pos))
@@ -707,7 +711,7 @@ class Parser:
     return res.success(node)
 
   def arith_expr(self):
-    return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
+    return self.bin_op(self.term, (TT_PLUS, TT_MINUS,TT_RE))
 
   def term(self):
     return self.bin_op(self.factor, (TT_MUL, TT_DIV))
@@ -1327,6 +1331,9 @@ class Value:
   def added_to(self, other):
     return None, self.illegal_operation(other)
 
+  def remainded_to(self,other):
+    return None,self.illegal_operation(other)
+
   def subbed_by(self, other):
     return None, self.illegal_operation(other)
 
@@ -1393,7 +1400,12 @@ class Number(Value):
       return Number(self.value + other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
-
+  
+  def remainded_to(self,other):
+    if isinstance(other,Number):
+      return Number(self.value%other.value).set_context(self.context),None
+    else:
+      return None,Value.illegal_operation(self,other)
   def subbed_by(self, other):
     if isinstance(other, Number):
       return Number(self.value - other.value).set_context(self.context), None
@@ -2019,6 +2031,8 @@ class Interpreter:
 
     if node.op_tok.type == TT_PLUS:
       result, error = left.added_to(right)
+    elif node.op_tok.type == TT_RE:
+      result,error = left.remainded_to(right)
     elif node.op_tok.type == TT_MINUS:
       result, error = left.subbed_by(right)
     elif node.op_tok.type == TT_MUL:
