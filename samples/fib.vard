@@ -1,0 +1,20 @@
+:Code for fibonacci sequence in VardScript using recursion
+
+:recursive function for giving the n-th number in the fibonacci sequence
+func fib(n)
+    if n <= 1 then
+        ret n
+    else
+        ret fib(n-1)+fib(n-2)
+    end
+end
+
+var n = inint()
+var result = []
+for i=0 until n then
+    append(result,fib(i))
+end
+:Print out the result list
+for i=0 until len(result) then
+    out(select(result,i))
+end

@@ -1,0 +1,11 @@
+func factorial(n)
+    if n==0 or n==1 then
+        ret 1
+    else
+        ret n*factorial(n-1)
+    end
+end
+
+var number = inint()
+var result = factorial(number)
+out(itos(number)+"! = "+itos(result))
