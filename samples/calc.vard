@@ -1,0 +1,24 @@
+:The simplest calculator, written in VardScript
+
+out("Input first number:")
+var first = inint()
+out("Input second number:")
+var second = inint()
+out("Input operation:")
+var op = in()
+
+if(op == "+") then
+    out(first+second)
+elseif(op == "-") then
+    out(first-second)
+elseif(op == "*") then
+    out(first*second)
+elseif(op == "/") then
+    if(second == 0) then
+        out("Division by zero")
+        halt()
+    end
+    out(first/second)
+else
+    out("Invalid Operation")
+end

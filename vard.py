@@ -13,6 +13,12 @@ if file_extension != ".vard":
     print("Not a .vard file!")
     exit()
 
-with open(filepath, "r") as f:
-    script = f.read()
-    run(filepath,script)
+try:
+    with open(filepath, "r") as f:
+        script = f.read()
+        result, error = run(filepath, script)
+        if error:
+            print(error.as_string())
+        exit()
+except KeyboardInterrupt:
+    exit()
