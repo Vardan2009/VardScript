@@ -7,7 +7,7 @@ func fib(n)
     else
         ret fib(n-1)+fib(n-2)
     end
-end
+end 
 
 var n = inint()
 var result = []

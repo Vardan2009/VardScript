@@ -1,0 +1,12 @@
+var test = 10
+var name = in()
+
+out("Hello, "+name+"!")
+
+if ((x==y+1*10) or 1==1) and flag then 
+    out("works!")
+end
+
+func test(x,y)
+    ret x+y
+end
