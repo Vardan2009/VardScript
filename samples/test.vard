@@ -1,5 +1,5 @@
-var test = 10
-var name = in()
+set test = 10
+set name = in()
 
 out("Hello, "+name+"!")
 

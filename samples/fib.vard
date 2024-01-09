@@ -9,8 +9,8 @@ func fib(n)
     end
 end 
 
-var n = inint()
-var result = []
+set n = inint()
+set result = []
 for i=0 until n then
     append(result,fib(i))
 end

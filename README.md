@@ -28,16 +28,16 @@ out("Your chosen number:"+inint()
 ```
 ## Variables
 ```
-var e = 10
+set e = 10
 out(e)
 
-var list = [1,2,3]
+set list = [1,2,3]
 out(select(list,1)) :select selects the n-th value from the list
 
-var isDone = true
+set isDone = true
 out(isDone) :prints out `1` as in `true`
 
-var name = in() :name == whatever in() returns
+set name = in() :name == whatever in() returns
 out("Hello, "+name+"!")
 ```
 ## Functions
@@ -74,7 +74,7 @@ end
 ## Loops
 ### `for` loops
 ```
-var alphabet = ["a","b","c","d"]
+set alphabet = ["a","b","c","d"]
 for i=0 until len(alphabet) then
     out(select(alphabet,i))
 end

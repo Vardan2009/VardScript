@@ -6,6 +6,6 @@ func factorial(n)
     end
 end
 
-var number = inint()
-var result = factorial(number)
+set number = inint()
+set result = factorial(number)
 out(itos(number)+"! = "+itos(result))

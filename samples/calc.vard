@@ -1,11 +1,11 @@
 :The simplest calculator, written in VardScript
 
 out("Input first number:")
-var first = inint()
+set first = inint()
 out("Input second number:")
-var second = inint()
+set second = inint()
 out("Input operation:")
-var op = in()
+set op = in()
 
 if(op == "+") then
     out(first+second)
