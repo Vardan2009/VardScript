@@ -54,6 +54,8 @@ out("Hello, "+name+"!")
 :example with stdlib
 include("std.vard")
 ```
+#### `include(filepath)`
+- runs other .vard code
 ### Custom functions
 #### Definition
 ```
