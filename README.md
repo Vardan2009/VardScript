@@ -48,7 +48,7 @@ out("Hello, "+name+"!")
 - List operations
 #### `halt()`
 - halts program
-#### `run(filepath)`
+#### `include(filepath)`
 - runs other .vard code
 ### Custom functions
 #### Definition
