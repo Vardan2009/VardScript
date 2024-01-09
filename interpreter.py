@@ -17,6 +17,7 @@ DIGITS = '0123456789'
 LETTERS = string.ascii_letters
 LETTERS_DIGITS = LETTERS + DIGITS
 
+
 #######################################
 # ERRORS
 #######################################
@@ -1662,7 +1663,7 @@ class Function(BaseFunction):
 
   def execute(self, args):
     res = RTResult()
-    interpreter = Interpreter()
+    interpreter = Interpreter(AbsPath)
     exec_ctx = self.generate_new_context()
 
     res.register(self.check_and_populate_args(self.arg_names, args, exec_ctx))
@@ -1889,6 +1890,7 @@ class BuiltInFunction(BaseFunction):
       ))
 
     fn = fn.value
+    fn = os.path.join(AbsPath,fn)
     try:
           file_name, file_extension = os.path.splitext(fn)
           if file_extension != ".vard":
@@ -1971,6 +1973,11 @@ class SymbolTable:
 #######################################
 
 class Interpreter:
+  AbsPath = ""
+  def __init__(self,abs):
+    global AbsPath
+    AbsPath = abs
+
   def visit(self, node, context):
     method_name = f'visit_{type(node).__name__}'
     method = getattr(self, method_name, self.no_visit_method)
@@ -2262,7 +2269,8 @@ def run(fn, text):
   if ast.error: return None, ast.error
 
   # Run program
-  interpreter = Interpreter()
+  interpreter = Interpreter(os.path.dirname(os.path.abspath(fn)))
+  
   context = Context('<program>')
   context.symbol_table = global_symbol_table
   result = interpreter.visit(ast.node, context)
