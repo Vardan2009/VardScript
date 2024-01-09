@@ -1664,7 +1664,7 @@ class Function(BaseFunction):
 
   def execute(self, args):
     res = RTResult()
-    interpreter = Interpreter(AbsPath)
+    interpreter = Interpreter()
     exec_ctx = self.generate_new_context()
 
     res.register(self.check_and_populate_args(self.arg_names, args, exec_ctx))
@@ -1896,7 +1896,7 @@ class BuiltInFunction(BaseFunction):
 
   def execute_run(self, exec_ctx):
     fn = exec_ctx.symbol_table.get("fn")
-
+  
     if not isinstance(fn, String):
       return RTResult().failure(RTError(
         self.pos_start, self.pos_end,
@@ -1905,7 +1905,7 @@ class BuiltInFunction(BaseFunction):
       ))
 
     fn = fn.value
-    fn = os.path.join(AbsPath,fn)
+    fn = os.path.join("./libraries/",fn)
     try:
           file_name, file_extension = os.path.splitext(fn)
           if file_extension != ".vard":
@@ -1989,11 +1989,6 @@ class SymbolTable:
 #######################################
 
 class Interpreter:
-  AbsPath = ""
-  def __init__(self,abs):
-    global AbsPath
-    AbsPath = abs
-
   def visit(self, node, context):
     method_name = f'visit_{type(node).__name__}'
     method = getattr(self, method_name, self.no_visit_method)
@@ -2286,7 +2281,7 @@ def run(fn, text):
   if ast.error: return None, ast.error
 
   # Run program
-  interpreter = Interpreter(os.path.dirname(os.path.abspath(fn)))
+  interpreter = Interpreter()
   
   context = Context('<program>')
   context.symbol_table = global_symbol_table

@@ -48,8 +48,12 @@ out("Hello, "+name+"!")
 - List operations
 #### `halt()`
 - halts program
-#### `run(filepath)`
-- runs other .vard code
+#### `include(libfilename)`
+- includes a library from 'libraries' folder
+```
+:example with stdlib
+include("std.vard")
+```
 ### Custom functions
 #### Definition
 ```

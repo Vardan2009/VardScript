@@ -1,0 +1,34 @@
+:VardScript Standard Library
+:This is a library file with cool functions
+
+func out_list(list,seperator)
+    if not islist(list) then
+        out("[out_list error] given argument 1 is not list!")
+        ret undef
+    end
+    if not isstr(seperator) then
+        out("[out_list error] given argument 2 is not string")
+        ret undef
+    end
+    for i=0 until len(list) then
+        set sep = seperator
+        if i==len(list)-1 then
+            set sep = ""
+        end
+        outend(select(list,i),sep)
+    end
+end
+
+func map(list,customFunction)
+    if not islist(list) then
+        out("[out_list error] given argument 1 is not list!")
+        ret undef
+    end
+    if not isfunc(customFunction) then
+        out("[out_list error] given argument 2 is not function")
+        ret undef
+    end
+    for i=0 until len(list) then
+        customFunction(select(list,i),i)
+    end
+end

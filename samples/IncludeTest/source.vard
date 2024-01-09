@@ -1,5 +1,0 @@
-include("./library.vard") :includes the library
-
-set myBooks = ["Book1","Book2","Book3","Book4","Book5"]
-
-out_list(myBooks,",")
