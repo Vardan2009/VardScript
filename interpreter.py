@@ -1719,6 +1719,11 @@ class BuiltInFunction(BaseFunction):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_print.arg_names = ['value']
+
+  def execute_print_end(self, exec_ctx):
+    print(str(exec_ctx.symbol_table.get('value')),end=str(exec_ctx.symbol_table.get('end')))
+    return RTResult().success(Number.null)
+  execute_print_end.arg_names = ['value','end']
   
   def execute_stoi(self,exec_ctx):
     return RTResult().success(Number(int(exec_ctx.symbol_table.get('str').value)))
@@ -1884,7 +1889,6 @@ class BuiltInFunction(BaseFunction):
       ))
 
     fn = fn.value
-    
     try:
           file_name, file_extension = os.path.splitext(fn)
           if file_extension != ".vard":
@@ -1912,6 +1916,7 @@ class BuiltInFunction(BaseFunction):
   execute_run.arg_names = ["fn"]
 
 BuiltInFunction.print       = BuiltInFunction("print")
+BuiltInFunction.print_end       = BuiltInFunction("print_end")
 BuiltInFunction.select   = BuiltInFunction("select")
 BuiltInFunction.input       = BuiltInFunction("input")
 BuiltInFunction.stoi       = BuiltInFunction("stoi")
@@ -2227,6 +2232,7 @@ global_symbol_table.set("false", Number.false)
 global_symbol_table.set("true", Number.true)
 global_symbol_table.set("math_pi", Number.math_PI)
 global_symbol_table.set("out", BuiltInFunction.print)
+global_symbol_table.set("outend", BuiltInFunction.print_end)
 global_symbol_table.set("stoi", BuiltInFunction.stoi)
 global_symbol_table.set("itos", BuiltInFunction.itos)
 global_symbol_table.set("select", BuiltInFunction.select)
@@ -2243,8 +2249,7 @@ global_symbol_table.set("append", BuiltInFunction.append)
 global_symbol_table.set("pop", BuiltInFunction.pop)
 global_symbol_table.set("ext", BuiltInFunction.extend)
 global_symbol_table.set("len", BuiltInFunction.len)
-global_symbol_table.set("run", BuiltInFunction.run)
-
+global_symbol_table.set("include", BuiltInFunction.run)
 def run(fn, text):
   # Generate tokens
   lexer = Lexer(fn, text)
