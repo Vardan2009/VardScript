@@ -1,0 +1,67 @@
+:rock paper scissors game made with vardscript
+
+set characters = ["Rock","Paper","Scissors"]
+
+out("Rock Paper Scissors")
+out("-------------------")
+out("Select:")
+for i=0 until len(characters) then
+    out(itos(i+1)+": "+select(characters,i))
+end
+set user = inint()
+
+if user<=0 or user>=4 then
+    out("Invalid input!")
+    halt()
+end
+
+cls()
+
+out("You Chose: "+select(characters,user-1)+"!")
+
+out("Waiting for Opponent...")
+
+set opponent = randint(1,3)
+
+out("Opponent Chose: "+select(characters,opponent-1)+"!")
+
+if opponent == user then 
+    out("Draw!");
+    halt(); 
+elseif user == 1 then
+    if opponent == 2 then 
+       out("Paper wins Rock. You Lose!")
+       halt()
+    elseif opponent == 3 then 
+       out("Rock wins Scissors. You Win!")
+       halt()
+    else
+       out("Something went wrong...") 
+       halt()
+    end
+elseif user == 2 then
+    if opponent == 1 then 
+        out("Paper wins Rock. You Win!")
+        halt()
+    elseif opponent == 3 then
+        out("Scissors win Paper. You Lose!")
+        halt()
+    else
+        out("Something went wrong...")
+        halt()
+    end
+elseif user == 3 then 
+    if opponent == 1 then 
+        out("Rock wins Scissors. You Lose!")
+        halt()
+    elseif opponent == 2 then
+        out("Scissors win Paper. You Win!")
+        halt()
+    else
+        out("Something went wrong...")
+        halt()
+    end
+else
+    out("Something went wrong...")
+    halt()
+end

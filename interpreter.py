@@ -7,6 +7,7 @@ from strings_with_arrows import *
 import string
 import os
 import math
+import random
 from sys import exit
 
 #######################################
@@ -1730,6 +1731,20 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(int(exec_ctx.symbol_table.get('str').value)))
   execute_stoi.arg_names = ['str']
 
+  def execute_randint(self,exec_ctx):
+    n1 = exec_ctx.symbol_table.get('l')
+    n2 = exec_ctx.symbol_table.get('r')
+    if not isinstance(n1,Number) or not isinstance(n2,Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Invalid Arguments for randint()",
+        exec_ctx
+      ))
+    n1 = int(n1.value)
+    n2 = int(n2.value)
+    return RTResult().success(Number(random.randint(n1,n2)))
+  execute_randint.arg_names = ['l','r']
+
   def execute_itos(self,exec_ctx):
     return RTResult().success(String(str(exec_ctx.symbol_table.get('int').value)))
   execute_itos.arg_names = ['int']
@@ -1863,7 +1878,7 @@ class BuiltInFunction(BaseFunction):
         exec_ctx
       ))
 
-    return RTResult().success(Number(list_.elements[index_.value]))
+    return RTResult().success(list_.elements[index_.value])
   execute_select.arg_names = ["list","index"]
 
   def execute_len(self, exec_ctx):
@@ -1920,6 +1935,7 @@ class BuiltInFunction(BaseFunction):
 BuiltInFunction.print       = BuiltInFunction("print")
 BuiltInFunction.print_end       = BuiltInFunction("print_end")
 BuiltInFunction.select   = BuiltInFunction("select")
+BuiltInFunction.randint   = BuiltInFunction("randint")
 BuiltInFunction.input       = BuiltInFunction("input")
 BuiltInFunction.stoi       = BuiltInFunction("stoi")
 BuiltInFunction.itos       = BuiltInFunction("itos")
@@ -2239,6 +2255,7 @@ global_symbol_table.set("false", Number.false)
 global_symbol_table.set("true", Number.true)
 global_symbol_table.set("math_pi", Number.math_PI)
 global_symbol_table.set("out", BuiltInFunction.print)
+global_symbol_table.set("randint", BuiltInFunction.randint)
 global_symbol_table.set("outend", BuiltInFunction.print_end)
 global_symbol_table.set("stoi", BuiltInFunction.stoi)
 global_symbol_table.set("itos", BuiltInFunction.itos)

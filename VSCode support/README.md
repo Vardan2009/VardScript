@@ -1,1 +1,0 @@
-- the `vardscript` extension will be released soon to VSCode marketplace!
