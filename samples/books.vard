@@ -1,0 +1,110 @@
+include("std.vard");
+
+cls();
+
+
+set books = [["To Kill a Mockingbird", "Harper Lee", "A classic novel set in the American South during the 1930s, addressing issues of racial injustice.", 1960, 281], ["1984", "George Orwell", "A dystopian novel depicting a totalitarian society and the struggles of the protagonist against oppressive government surveillance.", 1949, 328], ["The Great Gatsby", "F. Scott Fitzgerald", "Set in the Roaring Twenties, the novel explores themes of wealth, love, and the American Dream.", 1925, 180], ["Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "The first book in the Harry Potter series, following the adventures of a young wizard at Hogwarts School of Witchcraft and Wizardry.", 1997, 309], ["The Catcher in the Rye", "J.D. Salinger", "A coming-of-age novel narrated by a disenchanted teenager, exploring themes of alienation and identity.", 1951, 224], ["The Hobbit", "J.R.R. Tolkien", "A fantasy novel following the journey of Bilbo Baggins as he helps a group of dwarves reclaim their homeland from a dragon.", 1937, 310], ["Pride and Prejudice", "Jane Austen", "A classic romance novel exploring societal expectations, love, and the complexities of relationships in 19th-century England.", 1813, 279], ["The Da Vinci Code", "Dan Brown", "A mystery thriller involving symbology and conspiracy theories, as Harvard symbologist Robert Langdon unravels a mystery in Paris.", 2003, 489], ["Brave New World", "Aldous Huxley", "A dystopian novel depicting a futuristic society where individuals are engineered for specific roles and controlled through pleasure.", 1932, 311], ["The Lord of the Rings: The Fellowship of the Ring", "J.R.R. Tolkien", "The first part of the epic fantasy trilogy, following the quest to destroy the One Ring and save Middle-earth from the dark lord Sauron.", 1954, 398]]
+
+func printBookInfoShort(book,idx)
+    out(itos(idx+1)+": "+select(book,0)+" by "+select(book,1))
+end
+
+func mkbook()
+    cls()
+    out("Enter new book name: ")
+    set name = in()
+    out("Enter new book author")
+    set author = in()
+    out("Enter new book description")
+    set desc = in()
+    out("Enter new book year")
+    set year = inint()
+    out("Enter new book page count")
+    set pages = inint()
+    append(books,[name,author,desc,year,pages])
+    cls()
+    out("New Book `"+name+"` added successfully!")
+    in()
+end
+
+func rmbook()
+    cls()
+    map(books,printBookInfoShort)
+    out("Select the book you want to remove: ")
+    set rmidx = inint()-1
+    if rmidx<0 or rmidx>len(books)-1 then
+        out("Invalid input!")
+    else
+        set bookname = select(select(books,rmidx),0)
+        out("Are you sure you want to remove book `"+bookname+"`? (y/N)")
+        set choice = in()
+        if choice == "y" then
+            pop(books,rmidx)
+            cls()
+            out("Book `"+bookname+"` removed successfully!")
+        else
+            out("Cancelled Book Removal")
+        end
+    end
+    in()
+end
+
+
+func printBookInfo(idx)
+    cls()
+    if idx<0 or idx>len(books)-1 then
+        out("Invalid input!")
+    else
+        set book = select(books,idx)
+        out("Book N"+itos(idx+1)+": "+select(book,0))
+        out("------------------------------------------------------------")
+        out(select(book,2))
+        out("------------------------------------------------------------")
+        out(itos(select(book,4))+" pages")
+        out("Written in "+itos(select(book,3))+" by "+select(book,1))
+    end
+    in()
+end
+
+func getbook()
+    map(books,printBookInfoShort);
+    out("Select Book: ")
+    set choice = inint()
+    printBookInfo(choice-1)
+end
+
+func viewdb()
+    map(books,printBookInfoShort)
+end
+
+set commands = [["mkbook","Add a book to the database",mkbook],["rmbook","Remove a book from the database",rmbook],["viewdb","Views Database",viewdb],["getbook","Gets particular book from database",getbook]]
+
+
+func printCommand(cmd,idx)
+    out(itos(idx+1)+": "+select(cmd,0)+" - "+select(cmd,1))
+end
+
+
+
+func shell()
+    out("Select Command: ")
+    map(commands,printCommand)
+    set cmd = in()
+    set error = true
+    for i=0 until len(commands) then
+        if cmd == select(select(commands,i),0) then
+            set error = false
+            set execute =select(select(commands,i),2)
+            execute()
+            brk
+        end
+    end
+    if error then
+        out("Invalid Command!")
+    end
+end
+
+:Infinite loop (i will never increment because step is 0)
+for i=0 until 1 step 0 then
+    shell()
+end
