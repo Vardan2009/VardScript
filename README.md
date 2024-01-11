@@ -1,5 +1,5 @@
 # VardScript Programming Language
-![Logo](/imgs/vardscript_text.png)
+![Logo](/imgs/vardscript_text_new.png)
 A simple, dynamically-typed, functional programming language.
 ![SampleScreenshot](/imgs/sample1.png)
 ## How to use
