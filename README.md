@@ -24,7 +24,7 @@ out("You Wrote: "+in())
 ```
 ### `inint()` function
 ```
-out("Your chosen number:"+inint()
+out("Your chosen number:"+inint())
 ```
 ## Variables
 ```
@@ -52,10 +52,11 @@ out("Hello, "+name+"!")
 - includes a library from 'libraries' folder
 ```
 :example with stdlib
-include("std.vard")
+include("std.vard");
 ```
-#### `include(filepath)`
-- runs other .vard code
+
+*semicolons are supported, but not required*
+
 ### Custom functions
 #### Definition
 ```
