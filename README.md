@@ -1,7 +1,7 @@
 # VardScript Programming Language
 ![Logo](/imgs/vardscript_text_new.png)
 A simple, dynamically-typed, functional programming language.
-![SampleScreenshot](/imgs/sample1.png)
+![SampleScreenshot](/imgs/sample2.png)
 ## How to use
 Create a .vard file and run it by running vard.py with an argument as the filepath (or just run shell.py for the shell)
 ```
