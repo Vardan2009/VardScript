@@ -49,10 +49,10 @@ out("Hello, "+name+"!")
 #### `halt()`
 - halts program
 #### `include(libfilename)`
-- includes a library from 'libraries' folder
+- includes a library from 'libraries' folder (without .vard extension)
 ```
-:example with stdlib
-include("std.vard");
+:example with math library
+include("math");
 ```
 
 *semicolons are supported, but not required*

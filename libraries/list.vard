@@ -1,4 +1,4 @@
-:VardScript Standard Library
+:VardScript Standard List Library
 :This is a library file with cool functions
 
 func out_list(list,seperator)

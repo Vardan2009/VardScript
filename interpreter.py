@@ -1770,6 +1770,25 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_clear.arg_names = []
 
+  def execute_sqrt(self,exec_ctx):
+    if(exec_ctx.symbol_table.get("value").value < 0):
+        print("Math Domain Error, tried getting sqrt of negative number")
+        return RTResult().success(Number(0))
+    return RTResult().success(Number(math.sqrt(exec_ctx.symbol_table.get("value").value))) 
+  execute_sqrt.arg_names = ["value"]
+
+  def execute_sin(self,exec_ctx):
+    return RTResult().success(Number(math.sin(exec_ctx.symbol_table.get("value").value)))
+  execute_sin.arg_names = ["value"]
+
+  def execute_cos(self,exec_ctx):
+    return RTResult().success(Number(math.cos(exec_ctx.symbol_table.get("value").value)))
+  execute_cos.arg_names = ["value"]
+
+  def execute_tan(self,exec_ctx):
+    return RTResult().success(Number(math.tan(exec_ctx.symbol_table.get("value").value)))
+  execute_tan.arg_names = ["value"]
+
   def execute_is_number(self, exec_ctx):
     is_number = isinstance(exec_ctx.symbol_table.get("value"), Number)
     return RTResult().success(Number.true if is_number else Number.false)
@@ -1905,7 +1924,7 @@ class BuiltInFunction(BaseFunction):
       ))
 
     fn = fn.value
-    fn = os.path.join("./libraries/",fn)
+    fn = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),"libraries"),fn)+".vard"
     try:
           file_name, file_extension = os.path.splitext(fn)
           if file_extension != ".vard":
@@ -1951,6 +1970,11 @@ BuiltInFunction.pop         = BuiltInFunction("pop")
 BuiltInFunction.extend      = BuiltInFunction("extend")
 BuiltInFunction.len			= BuiltInFunction("len")
 BuiltInFunction.run			= BuiltInFunction("run")
+
+BuiltInFunction.sqrt = BuiltInFunction("sqrt")
+BuiltInFunction.sin =  BuiltInFunction("sin")
+BuiltInFunction.cos =  BuiltInFunction("cos")
+BuiltInFunction.tan =  BuiltInFunction("tan")
 
 #######################################
 # CONTEXT
@@ -2269,6 +2293,12 @@ global_symbol_table.set("pop", BuiltInFunction.pop)
 global_symbol_table.set("ext", BuiltInFunction.extend)
 global_symbol_table.set("len", BuiltInFunction.len)
 global_symbol_table.set("include", BuiltInFunction.run)
+
+global_symbol_table.set("sqrt",BuiltInFunction.sqrt)
+global_symbol_table.set("sin",BuiltInFunction.sin)
+global_symbol_table.set("cos",BuiltInFunction.cos)
+global_symbol_table.set("tan",BuiltInFunction.tan)
+
 def run(fn, text):
   # Generate tokens
   lexer = Lexer(fn, text)
