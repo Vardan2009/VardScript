@@ -47,20 +47,3 @@ end
 func avg(list)
     ret sum(list) / len(list)
 end
-
-func sqrt(num)
-    if num < 0 then
-        ret undef
-    end
-
-    set guess = num / 2
-    
-    for i = 0 until 10 step 0 then
-        if not (abs(guess*guess-num)>0.000001) then
-            brk
-        end
-        set guess = (guess+num/guess)/2
-    end
-    
-    ret guess
-end
