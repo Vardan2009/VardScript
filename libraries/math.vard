@@ -8,14 +8,6 @@
 set pi = 3.14159265359
 set e = 2.718281828459045
 
-func pow(a,b)
-    set r = 1
-    for i=0 until b then
-        set r = r*a
-    end
-    ret r
-end
-
 func abs(a)
     if a < 0 then
         ret -a
